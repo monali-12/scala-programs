@@ -1,0 +1,533 @@
+ use Mydb
+switched to db Mydb
+/////////////SLIP2///////////
+> db.createCollection("product")
+{ "ok" : 1 }
+> db.createCollection("order")
+{ "ok" : 1 }
+
+> db.product.insert({id:1,name:"lakme lipstick",price:10000,company:"lakme",doe:"21-05-2017"})
+WriteResult({ "nInserted" : 1 })
+> db.product.insert({id:1,name:"facewash",price:100,company:"himalaya",doe:"24-06-2000"})
+WriteResult({ "nInserted" : 1 })
+> db.product.insert({id:2,name:"lip care",price:500,company:"himalaya",doe:"08-11-2001"})
+WriteResult({ "nInserted" : 1 })
+> db.product.insert({id:3,name:"eye linar",price:700,company:"lakme",doe:"02-02-2014"})
+WriteResult({ "nInserted" : 1 })
+
+> db.order.insert({id:1,name:"pranali",status:"invoke",product:"lip care",price:500,address:"wakad"})
+WriteResult({ "nInserted" : 1 })
+> db.order.insert({id:2,name:"mona",status:"not invoke",product:"lakme lipstick",price:10000,address:"hadapsar"})
+WriteResult({ "nInserted" : 1 })
+> db.order.insert({id:3,name:"kiran",status:"not invoke",product:"lakme lipstick",price:10000,address:"shivajinagar"})
+WriteResult({ "nInserted" : 1 })
+
+> db.product.find({})
+{ "_id" : ObjectId("5ddb6483f24b8ae8a8dcdacd"), "id" : 1, "name" : "lakme lipstick", "price" : 10000, "company" : "lakme", "doe" : "21-05-2017" }
+{ "_id" : ObjectId("5ddb64c2f24b8ae8a8dcdace"), "id" : 1, "name" : "facewash", "price" : 100, "company" : "himalaya", "doe" : "24-06-2000" }
+{ "_id" : ObjectId("5ddb64f5f24b8ae8a8dcdacf"), "id" : 2, "name" : "lip care", "price" : 500, "company" : "himalaya", "doe" : "08-11-2001" }
+{ "_id" : ObjectId("5ddb652cf24b8ae8a8dcdad0"), "id" : 3, "name" : "eye linar", "price" : 700, "company" : "lakme", "doe" : "02-02-2014" }
+
+> db.product.find({},{_id:0})
+{ "id" : 1, "name" : "lakme lipstick", "price" : 10000, "company" : "lakme", "doe" : "21-05-2017" }
+{ "id" : 1, "name" : "facewash", "price" : 100, "company" : "himalaya", "doe" : "24-06-2000" }
+{ "id" : 2, "name" : "lip care", "price" : 500, "company" : "himalaya", "doe" : "08-11-2001" }
+{ "id" : 3, "name" : "eye linar", "price" : 700, "company" : "lakme", "doe" : "02-02-2014" }
+
+> db.order.find({price:{$gt:500}})
+{ "_id" : ObjectId("5ddb6ecff24b8ae8a8dcdad2"), "id" : 2, "name" : "mona", "status" : "not invoke", "product" : "lakme lipstick", "price" : 10000, "address" : "hadapsar" }
+{ "_id" : ObjectId("5ddb6f02f24b8ae8a8dcdad3"), "id" : 3, "name" : "kiran", "status" : "not invoke", "product" : "lakme lipstick", "price" : 10000, "address" : "shivajinagar" }
+
+> db.order.find({price:{$gt:500}},{_id:0})
+{ "id" : 2, "name" : "mona", "status" : "not invoke", "product" : "lakme lipstick", "price" : 10000, "address" : "hadapsar" }
+{ "id" : 3, "name" : "kiran", "status" : "not invoke", "product" : "lakme lipstick", "price" : 10000, "address" : "shivajinagar" }
+
+> db.order.find({status:"not invoke"})
+{ "_id" : ObjectId("5ddb6ecff24b8ae8a8dcdad2"), "id" : 2, "name" : "mona", "status" : "not invoke", "product" : "lakme lipstick", "price" : 10000, "address" : "hadapsar" }
+{ "_id" : ObjectId("5ddb6f02f24b8ae8a8dcdad3"), "id" : 3, "name" : "kiran", "status" : "not invoke", "product" : "lakme lipstick", "price" : 10000, "address" : "shivajinagar" }
+> db.order.find({status:"not invoke"},{_id:0})
+{ "id" : 2, "name" : "mona", "status" : "not invoke", "product" : "lakme lipstick", "price" : 10000, "address" : "hadapsar" }
+{ "id" : 3, "name" : "kiran", "status" : "not invoke", "product" : "lakme lipstick", "price" : 10000, "address" : "shivajinagar" }
+
+> db.order.find({name:"pranali"},{_id:0})
+{ "id" : 1, "name" : "pranali", "status" : "invoke", "product" : "lip care", "price" : 500, "address" : "wakad" }
+
+
+
+
+
+
+//////slip3//////////
+> db.createCollection("book")
+{ "ok" : 1 }
+> db.createCollection("publisher")
+{ "ok" : 1 }
+
+> db.book.insert({id:1,name:"nosql distilled",writer:"pramod",publisher:"vision",cost:2000,date:2017})
+WriteResult({ "nInserted" : 1 })
+> db.book.insert({id:2,name:"artificial intelligance",writer:"raghuramkrishnan",publisher:"vision",cost:1000,date:2000})
+WriteResult({ "nInserted" : 1 })
+> db.book.insert({id:3,name:"ppl",writer:"sarita",publisher:"techmax",cost:2015,date:2014})
+WriteResult({ "nInserted" : 1 })
+
+> db.publisher.insert({id:1,name:"vision",city:"mumbai"})
+WriteResult({ "nInserted" : 1 })
+> db.publisher.insert({id:2,name:"vision",city:"pune"})
+WriteResult({ "nInserted" : 1 })
+> db.publisher.insert({id:3,name:"techmax",city:"mumbai"})
+WriteResult({ "nInserted" : 1 })
+
+> db.publisher.find({city:"mumbai"})
+{ "_id" : ObjectId("5ddb742bf24b8ae8a8dcdad7"), "id" : 1, "name" : "vision", "city" : "mumbai" }
+{ "_id" : ObjectId("5ddb749ef24b8ae8a8dcdad9"), "id" : 3, "name" : "techmax", "city" : "mumbai" }
+
+> db.book.find({cost:{$gt:1000}})
+{ "_id" : ObjectId("5ddb731df24b8ae8a8dcdad4"), "id" : 1, "name" : "nosql distilled", "writer" : "pramod", "publisher" : "vision", "cost" : 2000, "date" : 2017 }
+{ "_id" : ObjectId("5ddb7387f24b8ae8a8dcdad6"), "id" : 3, "name" : "ppl", "writer" : "sarita", "publisher" : "techmax", "cost" : 2015, "date" : 2014 }
+
+> db.book.find({cost:{$gt:1000}},{_id:0})
+{ "id" : 1, "name" : "nosql distilled", "writer" : "pramod", "publisher" : "vision", "cost" : 2000, "date" : 2017 }
+{ "id" : 3, "name" : "ppl", "writer" : "sarita", "publisher" : "techmax", "cost" : 2015, "date" : 2014 }
+
+
+
+////////slip4///////////
+> db.createCollection("hospital")
+{ "ok" : 1 }
+> db.createCollection("doctor")
+{ "ok" : 1 }
+> db.hospital.insert({id:100,hosname:"jehangir hospital",address:"pune","specializations":["pediatric","orthopedic"]})
+WriteResult({ "nInserted" : 1 })
+> db.hospital.insert({id:101,hosname:"kk hospital",address:"alandi","specializations":"pediatric"})
+WriteResult({ "nInserted" : 1 })
+> db.hospital.insert({id:102,hosname:"birla hospital",address:"pune","specializations":["pediatric,gynaec"]})
+WriteResult({ "nInserted" : 1 })
+> db.doctor.insert({id:1,docname:"mahesh",specialist:["allergist","orthopedist"],visit:{"monday":["jehangir hospital","kk hospital"]})
+
+
+ db.hospital.find({})
+{ "_id" : ObjectId("5ddb7a3ff24b8ae8a8dcdada"), "id" : 100, "hosname" : "jehangir hospital", "address" : "pune", "specializations" : [ "pediatric", "orthopedic" ] }
+{ "_id" : ObjectId("5ddb7a79f24b8ae8a8dcdadb"), "id" : 101, "hosname" : "kk hospital", "address" : "alandi", "specializations" : "pediatric" }
+{ "_id" : ObjectId("5ddb7ab9f24b8ae8a8dcdadc"), "id" : 102, "hosname" : "birla hospital", "address" : "pune", "specializations" : [ "pediatric,gynaec" ] }
+
+
+> db.doctor.insert({id:1,docname:"mahesh","specialist":["allergist","orthopedist"],"visit":{"monday":["jehangir hospital","kk hospital"],"tuesday":["birla hospital"]}})
+WriteResult({ "nInserted" : 1 })
+> db.doctor.insert({id:2,docname:"aditya","specialist":["orthopedist"],"visit":{"monday":["jehangir hospital"],"tuesday":["kk hospital"]}})
+WriteResult({ "nInserted" : 1 })
+> db.doctor.insert({id:3,docname:"madhuri","specialist":["orthopedist"],"visit":{"monday":["kk hospital"],"wednesday":["birla hospital","jehangir hospital"]}})
+WriteResult({ "nInserted" : 1 })
+
+
+> db.hospital.find({specializations:"pediatric"})
+{ "_id" : ObjectId("5ddb7a3ff24b8ae8a8dcdada"), "id" : 100, "hosname" : "jehangir hospital", "address" : "pune", "specializations" : [ "pediatric", "orthopedic" ] }
+{ "_id" : ObjectId("5ddb7a79f24b8ae8a8dcdadb"), "id" : 101, "hosname" : "kk hospital", "address" : "alandi", "specializations" : "pediatric" }
+
+
+> db.doctor.find({"visit.monday":["jehangir hospital"]})
+{ "_id" : ObjectId("5ddb7d6ef6b070b5550b533a"), "id" : 2, "docname" : "aditya", "specialist" : [ "orthopedist" ], "visit" : { "monday" : [ "jehangir hospital" ], "tuesday" : [ "kk hospital" ] } }
+> db.doctor.find({"visit.monday":"jehangir hospital"},{docname:1})
+{ "_id" : ObjectId("5ddb7d28f6b070b5550b5339"), "docname" : "mahesh" }
+{ "_id" : ObjectId("5ddb7d6ef6b070b5550b533a"), "docname" : "aditya" }
+> db.doctor.find({"visit.monday":"jehangir hospital"},{docname:1,_id:0})
+{ "docname" : "mahesh" }
+{ "docname" : "aditya" }
+
+> db.doctor.find({docname:"madhuri"},{hospname:1})
+{ "_id" : ObjectId("5ddb7e03f6b070b5550b533b") }
+> db.doctor.find({docname:"madhuri"})
+{ "_id" : ObjectId("5ddb7e03f6b070b5550b533b"), "id" : 3, "docname" : "madhuri", "specialist" : [ "orthopedist" ], "visit" : { "monday" : [ "kk hospital" ], "wednesday" : [ "birla hospital", "jehangir hospital" ] } }
+> db.doctor.find({docname:"aditya"})
+{ "_id" : ObjectId("5ddb7d6ef6b070b5550b533a"), "id" : 2, "docname" : "aditya", "specialist" : [ "orthopedist" ], "visit" : { "monday" : [ "jehangir hospital" ], "tuesday" : [ "kk hospital" ] } }
+> db.doctor.find({docname:"mahesh"})
+{ "_id" : ObjectId("5ddb7d28f6b070b5550b5339"), "id" : 1, "docname" : "mahesh", "specialist" : [ "allergist", "orthopedist" ], "visit" : { "monday" : [ "jehangir hospital", "kk hospital" ], "tuesday" : [ "birla hospital" ] } }
+> db.doctor.find({docname:"mahesh"})
+{ "_id" : ObjectId("5ddb7d28f6b070b5550b5339"), "id" : 1, "docname" : "mahesh", "specialist" : [ "allergist", "orthopedist" ], "visit" : { "monday" : [ "jehangir hospital", "kk hospital" ], "tuesday" : [ "birla hospital" ] } }
+
+
+
+
+
+////////slip10/////////
+> db.mobile.insert({id:100,"brandname":"samsung","model":"j6","ram":"4GB","rom":"32GB","rating":4,"price":16000})
+WriteResult({ "nInserted" : 1 })
+> db.mobile.insert({id:101,"brandname":"apple","model":"iphone 7plus","ram":"4GB","rom":"64GB","rating":4.5,"price":320000})
+WriteResult({ "nInserted" : 1 })
+> db.mobile.insert({id:102,"brandname":"oneplus","model":"oneplus6","ram":"4GB","rom":"32GB","rating":5,"price":350000})
+WriteResult({ "nInserted" : 1 })
+
+> db.mobile.find({ram:"4GB",rom:"32GB"})
+{ "_id" : ObjectId("5ddb86aaf6b070b5550b5342"), "id" : 100, "brandname" : "samsung", "model" : "j6", "ram" : "4GB", "rom" : "32GB", "rating" : 4, "price" : 16000 }
+{ "_id" : ObjectId("5ddb873cf6b070b5550b5344"), "id" : 102, "brandname" : "oneplus", "model" : "oneplus6", "ram" : "4GB", "rom" : "32GB", "rating" : 5, "price" : 350000 }
+> db.mobile.find({ram:"4GB",rom:"32GB"},{"brandname":1,"model":1})
+{ "_id" : ObjectId("5ddb86aaf6b070b5550b5342"), "brandname" : "samsung", "model" : "j6" }
+{ "_id" : ObjectId("5ddb873cf6b070b5550b5344"), "brandname" : "oneplus", "model" : "oneplus6" }
+> db.mobile.find({ram:"4GB",rom:"32GB"},{"brandname":1,"model":1,_id:0})
+{ "brandname" : "samsung", "model" : "j6" }
+{ "brandname" : "oneplus", "model" : "oneplus6" }
+
+
+> db.customer.insert({id:1,name:"pranali","bought":"samsung j6",cost:16000})
+WriteResult({ "nInserted" : 1 })
+> db.customer.insert({id:2,name:"kiran","bought":"samsung j6",cost:16000})
+WriteResult({ "nInserted" : 1 })
+> db.customer.insert({id:3,name:"kiran","bought":"apple",cost:350000})
+WriteResult({ "nInserted" : 1 })
+
+> db.customer.find({"bought":"samsung j6"})
+{ "_id" : ObjectId("5ddb88e8f6b070b5550b5345"), "id" : 1, "name" : "pranali", "bought" : "samsung j6", "cost" : 16000 }
+{ "_id" : ObjectId("5ddb88faf6b070b5550b5346"), "id" : 2, "name" : "kiran", "bought" : "samsung j6", "cost" : 16000 }
+
+
+> db.mobile.find({},{"brandname":1,_id:0})
+{ "brandname" : "samsung" }
+{ "brandname" : "apple" }
+{ "brandname" : "oneplus" }
+
+
+> db.customer.find({"bought":"apple"})
+{ "_id" : ObjectId("5ddb891bf6b070b5550b5347"), "id" : 3, "name" : "kiran", "bought" : "apple", "cost" : 350000 }
+
+//////////slip9////////
+> db.transaction.insert({id:1,user:"john",paymenttype:"debit card",amount:50000})
+WriteResult({ "nInserted" : 1 })
+> db.transaction.insert({id:2,user:"pranali",paymenttype:"credit card",amount:46000})
+WriteResult({ "nInserted" : 1 })
+> db.transaction.insert({id:3,user:"kiran",paymenttype:"debit card",amount:24078})
+WriteResult({ "nInserted" : 1 })
+> db.transaction.insert({id:4,user:"john",paymenttype:"debit card",amount:57868})
+WriteResult({ "nInserted" : 1 })
+
+
+> db.transaction.find({user:"john"})
+{ "_id" : ObjectId("5ddb8bb0f6b070b5550b5348"), "id" : 1, "user" : "john", "paymenttype" : "debit card", "amount" : 50000 }
+{ "_id" : ObjectId("5ddb8c26f6b070b5550b534b"), "id" : 4, "user" : "john", "paymenttype" : "debit card", "amount" : 57868 }
+
+
+> db.transaction.find({paymenttype:"debit card"})
+{ "_id" : ObjectId("5ddb8bb0f6b070b5550b5348"), "id" : 1, "user" : "john", "paymenttype" : "debit card", "amount" : 50000 }
+{ "_id" : ObjectId("5ddb8c0af6b070b5550b534a"), "id" : 3, "user" : "kiran", "paymenttype" : "debit card", "amount" : 24078 }
+{ "_id" : ObjectId("5ddb8c26f6b070b5550b534b"), "id" : 4, "user" : "john", "paymenttype" : "debit card", "amount" : 57868 }
+
+
+
+
+> db.transaction.find({"paymenttype":"credit card"},{_id:1,"amount":1})
+{ "_id" : ObjectId("5ddb8be0f6b070b5550b5349"), "amount" : 46000 }
+
+
+> db.transaction.find({"paymenttype":"debit card"})
+{ "_id" : ObjectId("5ddb8bb0f6b070b5550b5348"), "id" : 1, "user" : "john", "paymenttype" : "debit card", "amount" : 50000 }
+{ "_id" : ObjectId("5ddb8c0af6b070b5550b534a"), "id" : 3, "user" : "kiran", "paymenttype" : "debit card", "amount" : 24078 }
+{ "_id" : ObjectId("5ddb8c26f6b070b5550b534b"), "id" : 4, "user" : "john", "paymenttype" : "debit card", "amount" : 57868 }
+
+
+
+
+
+//////////slip5/////////
+> db.blog.insert({id:1,blogname:"pranali",tagged:"food blog",users:"amit",date:2017,comment:"like"})
+WriteResult({ "nInserted" : 1 })
+> db.blog1.insert({id:1,blogname:"pranali",tagged:"food blog",users:"amit",date:2017,comment:"like"})
+WriteResult({ "nInserted" : 1 })
+> db.blog1.insert({id:2,blogname:"mona",tagged:"food blog",users:"sagar",date:2017,comment:"notlike"})
+WriteResult({ "nInserted" : 1 })
+> db.blog1.insert({id:3,blogname:"kiran",tagged:"food blog",users:"amit",date:2015,comment:"nice"})
+WriteResult({ "nInserted" : 1 })
+
+> db.blog.find({tagged:"food blog"},{blogname:1})
+{ "_id" : ObjectId("5ddb9db7f6b070b5550b5351") }
+{ "_id" : ObjectId("5ddb9e9ef6b070b5550b5352"), "blogname" : "pranali" }
+> db.blog1.find({tagged:"food blog"},{blogname:1})
+{ "_id" : ObjectId("5ddb9eaef6b070b5550b5353"), "blogname" : "pranali" }
+{ "_id" : ObjectId("5ddb9ed2f6b070b5550b5354"), "blogname" : "mona" }
+{ "_id" : ObjectId("5ddb9ef2f6b070b5550b5355"), "blogname" : "kiran" }
+
+> db.blog1.find({users:"amit"},{blogname:1})
+{ "_id" : ObjectId("5ddb9eaef6b070b5550b5353"), "blogname" : "pranali" }
+{ "_id" : ObjectId("5ddb9ef2f6b070b5550b5355"), "blogname" : "kiran" }
+
+
+> db.blog1.find({date:{$gt:2014},comment:"notlike"})
+{ "_id" : ObjectId("5ddb9ed2f6b070b5550b5354"), "id" : 2, "blogname" : "mona", "tagged" : "food blog", "users" : "sagar", "date" : 2017, "comment" : "notlike" }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

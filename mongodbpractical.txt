@@ -1,0 +1,172 @@
+use monali
+switched to db monali
+> db.mobile.find()
+{ "_id" : ObjectId("5ddc327c8c601fcf6e10b804"), "mobid" : 100, "brandname" : "samsung", "model" : "j6", "ram" : "8GB", "rom" : "32GB", "rating" : 4, "price" : 16000 }
+{ "_id" : ObjectId("5ddc327c8c601fcf6e10b805"), "mobid" : 101, "brandname" : "apple", "model" : "iphone", "ram" : "8GB", "rom" : "64GB", "rating" : 4.5, "price" : 32000 }
+{ "_id" : ObjectId("5ddc327c8c601fcf6e10b806"), "mobid" : 102, "brandname" : "oneplus", "model" : "oneplus7", "ram" : "8GB", "rom" : "32GB", "rating" : 5, "price" : 35000 }
+> db.mobile.find().sort({"brandname":1},{model:"j6"})
+{ "_id" : ObjectId("5ddc327c8c601fcf6e10b805"), "mobid" : 101, "brandname" : "apple", "model" : "iphone", "ram" : "8GB", "rom" : "64GB", "rating" : 4.5, "price" : 32000 }
+{ "_id" : ObjectId("5ddc327c8c601fcf6e10b806"), "mobid" : 102, "brandname" : "oneplus", "model" : "oneplus7", "ram" : "8GB", "rom" : "32GB", "rating" : 5, "price" : 35000 }
+{ "_id" : ObjectId("5ddc327c8c601fcf6e10b804"), "mobid" : 100, "brandname" : "samsung", "model" : "j6", "ram" : "8GB", "rom" : "32GB", "rating" : 4, "price" : 16000 }
+> db.mobile.aggregate([{"$sort":{"rating":-1}},{"$limit":2},{$group:{_id:"$brandname"}}])
+{ "_id" : "apple" }
+{ "_id" : "oneplus" }
+> db.mobile.aggregate([{"$sort":{"rating":-1}},{"$limit":1},{$group:{_id:"$brandname"}}])
+{ "_id" : "oneplus" }
+> db.mobile.insert([{ mobid:100,brandname:"samsung",model:"j6",ram:"4GB",rom:"32GB",rating:4,price:16000},{mobid:101,brandname:"apple",model:"iphone",ram:"4GB",rom:"64GB",rating:4.5,price:32000},{mobid:102,brandname:"oneplus",model:"oneplus7",ram:"4GB",rom:"32GB",rating:5,price:35000}])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 3,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.transaction.insert([{itemName:"toy",customerName:"john",paymentmode:"debitcard",payment:8000},{itemName:"car",customerName:"john",paymentmode:"creditcard",payment:4000},{itemName:"bag",customerName:"mukesh",paymentmode:"cash",payment:5000},{itemName:"mango",customerName:"abhijeet",paymentmode:"creditcard",payment:8000}])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 4,
+"nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.transaction.find()
+{ "_id" : ObjectId("5ddd3cac749b9bcc33b43229"), "itemName" : "toy", "customerName" : "john", "paymentmode" : "debitcard", "payment" : 8000 }
+{ "_id" : ObjectId("5ddd3cac749b9bcc33b4322a"), "itemName" : "car", "customerName" : "john", "paymentmode" : "creditcard", "payment" : 4000 }
+{ "_id" : ObjectId("5ddd3cac749b9bcc33b4322b"), "itemName" : "bag", "customerName" : "mukesh", "paymentmode" : "cash", "payment" : 5000 }
+{ "_id" : ObjectId("5ddd3cac749b9bcc33b4322c"), "itemName" : "mango", "customerName" : "abhijeet", "paymentmode" : "creditcard", "payment" : 8000 }
+> db.mobile.find({"customerName":)
+...
+...
+> db.transaction.find({customerName:"jhon"})
+> db.transaction.find({customerName:"john"})
+{ "_id" : ObjectId("5ddd3cac749b9bcc33b43229"), "itemName" : "toy", "customerName" : "john", "paymentmode" : "debitcard", "payment" : 8000 }
+{ "_id" : ObjectId("5ddd3cac749b9bcc33b4322a"), "itemName" : "car", "customerName" : "john", "paymentmode" : "creditcard", "payment" : 4000 }
+> db.transaction.find({paymentmode:"debitcard"})
+{ "_id" : ObjectId("5ddd3cac749b9bcc33b43229"), "itemName" : "toy", "customerName" : "john", "paymentmode" : "debitcard", "payment" : 8000 }
+> db.transaction.aggregate([{$match:{paymentmode:"creditcard"}},{$group:{_id:null,"count":{"$sum":"$payment"}}}])
+{ "_id" : null, "count" : 12000 }
+> db.transaction.aggregate([{$match:{paymentmode:"creditcard"}},{$group:{_id:1,"count":{"$sum":"$payment"}}}])
+{ db.transaction.aggregate([{$group:{_id:"$paymentmode","count":{"$sum":"$payment"}}}])
+{ "_id" : "debitcard", "count" : 8000 }ag:["wash","food","vehicle"],status:"A",height:5,width:9,instack:15,warehouse:[{"
+{ "_id" : "creditcard", "count" : 12000 }:["wash","food","vehicle"],status:"A",height:5,width:9,instack:15,warehouse:[{"
+{ "_id" : "cash", "count" : 5000 }er",tag:["wash","food","vehicle"],status:"A",height:5,width:9,instack:15,warehouse:[{"
+> db.item.insert([{itemName:"planner",tag:["wash","food","vehicle"],status:"A",height:5,width:9,instack:15,warehouse:[{"
+> db.item.insert([{itemName:"planner",tag:["wash","food","vehicle"],status:"A",height:5,width:9,instack:15,warehouse:[{"
+> db.item.insert([{itemName:"planner",tag:["wash","food","vehicle"],status:"A",height:5,width:9,instack:15,warehouse:[{"
+> db.item.insert([{itemName:"planner",tag:["wash","food","vehicle"],status:"A",height:5,width:9,instack:15,warehouse:[{"
+> db.item.insert([{itemName:"planner",tag:["wash","food","vechicle"],status:"A",height:5,width:9,instack:15,warehouse:[{location:"pune",quntity:36},{location:"mumbai",quntity:67}]},{itemName:"toycar",tag:["food","vechical"],status:"D",height:9,width:9,instack:15,warehouse:[{location:"pune",quntity:36},{location:"mumbai",quntity:67}]},{itemName:"roboticcar",tag:["school","travel"],status:"A",height:6,width:8,instack:79,warehouse:[{location:"surat",quntity:45},{location:"lonavala",quntity:67}]}])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 3,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.item.find()
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322d"), "itemName" : "planner", "tag" : [ "wash", "food", "vechicle" ], "status" : "A", "height" : 5, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322e"), "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322f"), "itemName" : "roboticcar", "tag" : [ "school", "travel" ], "status" : "A", "height" : 6, "width" : 8, "instack" : 79, "warehouse" : [ { "location" : "surat", "quntity" : 45 }, { "location" : "lonavala", "quntity" : 67 } ] }
+> db.item.find({"_id":0})
+> db.item.find({}{"_id":0})
+2019-11-26T23:26:49.634+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:15
+> db.item.find({},{"_id":0})
+{ "itemName" : "planner", "tag" : [ "wash", "food", "vechicle" ], "status" : "A", "height" : 5, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+{ "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+{ "itemName" : "roboticcar", "tag" : [ "school", "travel" ], "status" : "A", "height" : 6, "width" : 8, "instack" : 79, "warehouse" : [ { "location" : "surat", "quntity" : 45 }, { "location" : "lonavala", "quntity" : 67 } ] }
+> db.item.find({status:"D",warehouse.quntity:{"$gt":30}})
+2019-11-26T23:46:17.843+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:34
+> db.item.find({status:"D",warehouse.quntity:{$gt:30}})
+2019-11-26T23:46:57.079+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:34
+> db.item.find({status:"D","warehouse.quntity":{$gt:30}})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322e"), "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+>
+> db.item.find({tag:{$size:3}})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322d"), "itemName" : "planner", "tag" : [ "wash", "food", "vechicle" ], "status" : "A", "height" : 5, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+> db.transaction.aggregate([{$match:{itemName:"planner"}},{$group:{warehouse,"warehouse.quntity":{$lt:20}}}])
+2019-11-27T00:04:14.522+0530 E  QUERY    [js] uncaught exception: ReferenceError: warehouse is not defined :
+@(shell):1:66
+> db.transaction.aggregate([{$match:{itemName:"planner"}},{$group:{"warehouse","warehouse.quntity":{$lt:20}}}])
+2019-11-27T00:04:53.871+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:76
+> db.transaction.aggregate([{$match:{itemName:"planner"}},{$group:{"itemName","warehouse.quntity":{$lt:20}}}])
+2019-11-27T00:05:21.543+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:75
+> db.item.find({itemName:"planner","warehouse.quntity":{$lt:20}})
+> db.item.find({itemName:"planner","warehouse.quntity":{$lt:40}})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322d"), "itemName" : "planner", "tag" : [ "wash", "food", "vechicle" ], "status" : "A", "height" : 5, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+> db.item.find({status:"D","warehouse.quntity":{$gt:60}})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322e"), "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+> db.item.find({status:"D","warehouse.quntity":{$gt:60},"warehouse.location":"mumbai"})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322e"), "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+> db.item.find({status:"D",$and:[{"warehouse.quntity":{$gt:60}},{"warehouse.location":"mumbai"}]})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322e"), "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+> db.item.find({status:"D",$or:[{"warehouse.quntity":{$gt:60}},{"warehouse.location":"mumbai"}]})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322e"), "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+> db.item.find({itemName:"planner",instack:{$lt:20}})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322d"), "itemName" : "planner", "tag" : [ "wash", "food", "vechicle" ], "status" : "A", "height" : 5, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+> db.item.find({$or:[{status:"A"},"warehouse.quntity":{$lt:30},height:{$gt:10}]})
+2019-11-27T00:27:37.379+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing ] after element list :
+@(shell):1:51
+> db.item.find({$or:[{status:"A"},{"warehouse.quntity":{$lt:30}},height:{$gt:10}]})
+2019-11-27T00:28:26.752+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing ] after element list :
+@(shell):1:69
+> db.item.find({$or:[{status:"A"},{"warehouse.quntity":{$lt:30},height:{$gt:10}}]})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322d"), "itemName" : "planner", "tag" : [ "wash", "food", "vechicle" ], "status" : "A", "height" : 5, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322f"), "itemName" : "roboticcar", "tag" : [ "school", "travel" ], "status" : "A", "height" : 6, "width" : 8, "instack" : 79, "warehouse" : [ { "location" : "surat", "quntity" : 45 }, { "location" : "lonavala", "quntity" : 67 } ] }
+> db.item.find({$and:[{status:"A"},{"warehouse.quntity":{$lt:30},height:{$gt:10}}]})
+> db.item.find({$and:[{status:"D"},{"warehouse.quntity":{$gt:60}}]})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322e"), "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+> db.item.find({$and:[{{status:"D"},{"warehouse.quntity":{$gt:60}}}]})
+2019-11-27T00:33:44.029+0530 E  QUERY    [js] uncaught exception: SyntaxError: expected property name, got '{' :
+@(shell):1:21
+> db.item.find({$and:[{status:"D",{"warehouse.quntity":{$gt:60}}}]})
+2019-11-27T00:35:44.360+0530 E  QUERY    [js] uncaught exception: SyntaxError: expected property name, got '{' :
+@(shell):1:32
+> db.item.find({$and:[{status:"D","warehouse.quntity":{$gt:60}}]})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322e"), "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+> db.item.find({status:"D",$and:[{"warehouse.quntity":{$gt:60},"warehouse.location":"mumbai"}]})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322e"), "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+> db.item.find({$and:[{status:"D","warehouse.quntity":{$gt:60},"warehouse.location":"mumbai"}]})
+{ "_id" : ObjectId("5ddd66e7749b9bcc33b4322e"), "itemName" : "toycar", "tag" : [ "food", "vechical" ], "status" : "D", "height" : 9, "width" : 9, "instack" : 15, "warehouse" : [ { "location" : "pune", "quntity" : 36 }, { "location" : "mumbai", "quntity" : 67 } ] }
+>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
